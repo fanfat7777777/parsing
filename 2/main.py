@@ -75,7 +75,9 @@ for i in range(page + 1):
                 #print(payment)
                 currency = re.search(r'(\D*)$', payment).group(0).replace(' ', '')
                 vacancy_data['Минимальная'] = int(re.search(r"\d{1,3}([' ']|[' '])\d?\d?\d?", payment).group(0).replace(' ', '').replace(' ', ''))
-                vacancy_data['Максимальная'] = int(re.search(rf"{search}", payment).group(0).replace(' ', '').replace(' ', ''))
+
+                #print(payment[len(re.search(r"\d{1,3}([' ']|[' '])\d?\d?\d?", payment).group(0)):])
+                vacancy_data['Максимальная'] = int(re.search(rf"{search}", payment[len(re.search(r"\d{1,3}([' ']|[' '])\d?\d?\d?", payment).group(0)):]).group(0).replace(' ', '').replace(' ', ''))
                 vacancy_data['Валюта'] = currency
 
         vacancy_data['Сылка на вакансию:'] = vacancy_url
