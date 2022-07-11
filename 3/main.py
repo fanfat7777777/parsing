@@ -17,7 +17,8 @@ url = f'https://kirov.hh.ru/search/vacancy?schedule=remote&L_profession_id=0&are
 
 session = requests.Session()
 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0'}
-params = {'page': f'{page}'}
+params = {'page': f'{page}',
+          'items_on_page': 20}
 response = session.get(url, headers=headers, params=params)
 
 dom = BeautifulSoup(response.text, 'html.parser')
@@ -32,9 +33,8 @@ for p in page[:]:
 #vacancy = page.select('div.vacancy-serp-item')
 vacancy_list = []
 # Идём по страницам page + 1
-for i in range(page + 1):
-    print(f'Страница {i}')
-    page = i
+while page >= 0:
+    print(f'Страница {page}')
     # Задержка при проходе
     value = random.random()
     scaled_value = 1 + (value * (9 - 5))
@@ -92,12 +92,13 @@ for i in range(page + 1):
 
 
 
-        if vacancy_bd.find_one({'Название': vacancy_data['Название']}) == None:
+        if vacancy_bd.find_one({'Сылка на вакансию:': vacancy_data['Сылка на вакансию:']}) == None:
             vacancy_bd.insert_one(vacancy_data)
 
         else:
-            vacancy_bd.replace_one({'Название': f"{vacancy_data['Название']}"}, vacancy_data)
+            vacancy_bd.replace_one({'Сылка на вакансию:': f"{vacancy_data['Сылка на вакансию:']}"}, vacancy_data)
 
+    page -= 1
 
 
 #print(len(vacancy_list))
