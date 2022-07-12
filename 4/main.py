@@ -23,8 +23,8 @@ items = dom.xpath("//*[contains(@class, '_topnews')]")
 repeats_news = []
 for item in items:
     new = {}
-    name = item.xpath("./*[contains(@class, 'card-')]//*[contains(@class, '__title')]/text()")
-    time = item.xpath(".//*[contains(@class, '__date')]/text()")
+    name = item.xpath("./*[contains(@class, 'card-')]//*[contains(@class, '__title')]/text()")[0]
+    time = item.xpath(".//*[contains(@class, '__date')]/text()")[0]
     href = item.xpath("./@href")
     # Как оказалось внешние источники есть, Пример:
     # https://moslenta.ru/news/city/vodopad-12-07-2022.htm/
