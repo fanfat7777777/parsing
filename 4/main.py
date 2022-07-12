@@ -30,7 +30,7 @@ for item in items:
     # https://moslenta.ru/news/city/vodopad-12-07-2022.htm/
     if 'http' in href[0]:
         # Если внешний источник:
-        source = re.search("(.*['ru'])", href)
+        source = re.search("(.*ru)", href[0]).group(0)
     else:
         href = url + href[0]
         source = url
